@@ -231,3 +231,25 @@ Milestone 4
     }
     </script>
     WHAT I USED/CHANGED: Used as-is. Tested full game flow: clicked Play, answered all 10 questions randomly to check correct and incorrect answers, confirmed score screen appeared, clicked Play Again and confirmed it reset back to the start screen.
+
+Phase 1 Stretch Goal
+    PROMPT: Add a question counter below the QuestionCard that shows "Question 3 of 10". This should be a computed property or a simple expression in the template.
+    RESPONSE: 
+    Here are the two small changes needed:
+    In App.vue template, add a paragraph just below <QuestionCard>:
+    vue<QuestionCard
+    v-else-if="gameState === 'playing'"
+    :question="questions[currentIndex]"
+    @answer="handleAnswer"
+    />
+    <p v-else-if="gameState === 'playing'">Question {{ currentIndex + 1 }} of {{ questions.length }}</p>
+    Wait — that won't work because v-else-if can't be used twice. Instead, wrap them in a <div>:
+    vue<div v-else-if="gameState === 'playing'">
+    <QuestionCard
+        :question="questions[currentIndex]"
+        @answer="handleAnswer"
+    />
+    <p>Question {{ currentIndex + 1 }} of {{ questions.length }}</p>
+    </div>
+    Wrapped QuestionCard and a <p> tag in a <div> in App.vue. Used {{ currentIndex + 1 }} of {{ questions.length }} as a template expression.
+    WHAT I USED/CHANGED: Used as-is. Confirmed the counter updated correctly as I clicked through questions.
