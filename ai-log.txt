@@ -43,3 +43,84 @@ Milestone 2
     }
     </script>
     WHAT I USED/CHANGED: Used as-is. Tested by passing :score="7" as a hardcoded prop in App.vue to confirm it rendered correctly.
+
+Milestone 3
+    PROMPT: I'm building a Vue 3 quiz game using Vite and the Options API. Write a single-file component called QuestionCard. It receives one prop called `question` shaped like `{ question: String, answers: Array, correct: Number }`. The template should display the question text and render four answer buttons using v-for. When a button is clicked: disable all buttons immediately, apply a green CSS class to the correct answer button and a red class to the clicked button if it was wrong, wait 1 second using setTimeout, then emit an event called 'answer' with the value true if the answer was correct or false if it was wrong. Reset the highlight state after emitting. Do not use TypeScript.
+    RESPONSE:
+        <template>
+        <div class="question-card">
+            <h2>{{ question.question }}</h2>
+            <div class="answers">
+            <button
+                v-for="(answer, index) in question.answers"
+                :key="index"
+                :disabled="answered"
+                :class="{
+                correct: answered && index === question.correct,
+                wrong: answered && index === selectedIndex && index !== question.correct
+                }"
+                @click="handleAnswer(index)"
+            >
+                {{ answer }}
+            </button>
+            </div>
+        </div>
+        </template>
+
+        <script>
+        export default {
+        name: 'QuestionCard',
+        props: {
+            question: {
+            type: Object,
+            required: true
+            }
+        },
+        emits: ['answer'],
+        data() {
+            return {
+            answered: false,
+            selectedIndex: null
+            }
+        },
+        methods: {
+            handleAnswer(index) {
+            if (this.answered) return
+            this.answered = true
+            this.selectedIndex = index
+            const isCorrect = index === this.question.correct
+            setTimeout(() => {
+                this.$emit('answer', isCorrect)
+                this.answered = false
+                this.selectedIndex = null
+            }, 1000)
+            }
+        }
+        }
+        </script>
+
+        <style scoped>
+        button {
+        display: block;
+        width: 100%;
+        margin: 8px 0;
+        padding: 10px;
+        cursor: pointer;
+        }
+        button.correct {
+        background-color: green;
+        color: white;
+        }
+        button.wrong {
+        background-color: red;
+        color: white;
+        }
+        button:disabled {
+        cursor: not-allowed;
+        }
+        </style>
+    WHAT I USED/CHANGED: Used as-is. Verified checklist (v-for with :key, data() state, setTimeout, $emit) before integrating. Tested with a hardcoded question in App.vue and confirmed true/false logged in DevTools console.
+
+    PROMPT: Where is the true/false logged? How do I know the output is working correctly?
+    RESPONSE: Open DevTools console (Cmd + Option + J on Mac, Ctrl + Shift + J on Windows). When you click an answer, true or false will print there, coming from the @answer="(val) => console.log(val)" on the test component in App.vue.
+    WHAT I USED/CHANGED: Used to verify the component was emitting correctly before committing. Confirmed true/false appeared in the console when clicking answers.
