@@ -1,2 +1,45 @@
 Milestone 1
     No AI Used.
+
+Milestone 2
+    PROMPT: Write a Vue 3 single-file component called StartScreen. It should display a heading that says 'QuizBlitz', a short tagline, and a button labelled 'Play'. When the button is clicked, it emits an event called 'start'. Use the Options API (not Composition API). No props needed.
+    RESPONSE:
+        <template>
+            <div class="start-screen">
+                <h1>QuizBlitz</h1>
+                <p>Test your knowledge — 10 questions, no second chances!</p>
+                <button @click="$emit('start')">Play</button>
+            </div>
+        </template>
+
+        <script>
+        export default {
+            name: 'StartScreen',
+            emits: ['start']
+        }
+        </script>
+    WHAT I USED/CHANGED: Used as-is. Confirmed $emit and @click were present before integrating.
+
+    PROMPT: Write a Vue 3 single-file component called ScoreBoard. It receives a prop called score (Number). It displays a heading 'Game Over', the player's score out of 10, and a 'Play Again' button. When Play Again is clicked, it emits 'restart'. Use the Options API.
+    RESPONSE:
+    <template>
+        <div class="score-board">
+            <h1>Game Over</h1>
+            <p>You scored {{ score }} out of 10</p>
+            <button @click="$emit('restart')">Play Again</button>
+        </div>
+    </template>
+
+    <script>
+    export default {
+        name: 'ScoreBoard',
+        props: {
+            score: {
+            type: Number,
+            required: true
+            }
+        },
+        emits: ['restart']
+    }
+    </script>
+    WHAT I USED/CHANGED: Used as-is. Tested by passing :score="7" as a hardcoded prop in App.vue to confirm it rendered correctly.
