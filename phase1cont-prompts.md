@@ -7,3 +7,7 @@
 **/[Claude Sonnet 4.6]** My questions array was accidentally deleted. Generate 10 new general knowledge quiz questions on mixed topics — not just computer science. Each question should have 4 answers and a correct index. Format as a JavaScript array of objects with question, answers, and correct properties.
 
 **/[Claude Sonnet 4.6]** Is this App.vue correct for Milestone 7?
+
+**/[Claude Sonnet 4.6]** Is this HomeView.vue correct for Milestone 8 with the sessionStorage flag added before navigating to play?
+
+**/[Claude Sonnet 4.6]** My navigation guard isn't working — typing /play in the address bar still loads the play screen. How do I debug it?

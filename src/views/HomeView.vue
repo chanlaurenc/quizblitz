@@ -10,7 +10,8 @@ export default {
   components: { StartScreen },
   methods: {
     goToGame() {
-      this.$router.push({ name: 'play' })
+        sessionStorage.setItem('gameStarted', 'true')
+        this.$router.push({ name: 'play' })
     }
   }
 }
