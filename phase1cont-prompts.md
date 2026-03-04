@@ -11,3 +11,5 @@
 **/[Claude Sonnet 4.6]** Is this HomeView.vue correct for Milestone 8 with the sessionStorage flag added before navigating to play?
 
 **/[Claude Sonnet 4.6]** My navigation guard isn't working — typing /play in the address bar still loads the play screen. How do I debug it?
+
+**/[Claude Sonnet 4.6]** Style my Vue 3 quiz app with a sleek minimal pastel aesthetic using soft purples and whites. Style App.vue, StartScreen.vue, QuestionCard.vue, and ScoreBoard.vue. Use Inter font, rounded cards, and pastel purple buttons.

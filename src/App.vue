@@ -15,20 +15,42 @@ export default {
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #f8f4ff;
+  min-height: 100vh;
+}
+
+#app {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
 nav {
   display: flex;
   gap: 1rem;
-  padding: 1rem;
-  background: #1a1a2e;
+  padding: 1.25rem 2rem;
+  background: #fff;
+  border-bottom: 1px solid #e8e0f0;
 }
 
 nav a {
-  color: #e0e0e0;
+  color: #9b8eb8;
   text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 400;
 }
 
 nav a.router-link-active {
-  color: #f5c518;
-  font-weight: bold;
+  color: #7c6fa0;
+  font-weight: 600;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="question-card">
-    <h2>{{ question.question }}</h2>
+    <h2 class="question-text">{{ question.question }}</h2>
     <div class="answers">
       <button
         v-for="(answer, index) in question.answers"
@@ -51,22 +51,53 @@ export default {
 </script>
 
 <style scoped>
+.question-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 2rem;
+  margin: 2rem;
+  box-shadow: 0 2px 20px rgba(180, 160, 210, 0.15);
+}
+
+.question-text {
+  font-size: 1.2rem;
+  color: #4a4060;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+.answers {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
 button {
-  display: block;
-  width: 100%;
-  margin: 8px 0;
-  padding: 10px;
+  padding: 0.85rem 1.25rem;
+  background: #f3eeff;
+  border: 2px solid #e0d4f5;
+  border-radius: 12px;
+  color: #6b5f8a;
+  font-size: 0.95rem;
   cursor: pointer;
+  text-align: left;
+  transition: all 0.15s;
 }
+
+button:hover:not(:disabled) {
+  background: #e8daff;
+  border-color: #c9b8e8;
+}
+
 button.correct {
-  background-color: green;
-  color: white;
+  background: #d4f5e4;
+  border-color: #86d9aa;
+  color: #2d7a52;
 }
+
 button.wrong {
-  background-color: red;
-  color: white;
-}
-button:disabled {
-  cursor: not-allowed;
+  background: #fde8e8;
+  border-color: #f5a0a0;
+  color: #c0392b;
 }
 </style>
