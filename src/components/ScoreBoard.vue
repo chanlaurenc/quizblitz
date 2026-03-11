@@ -1,7 +1,7 @@
 <template>
   <div class="scoreboard">
     <h1>Game Over</h1>
-    <p>You scored {{ score }} out of 10</p>
+    <p>You scored {{ score }} out of {{ total }}</p>
     <button @click="$emit('restart')">Play Again</button>
   </div>
 </template>
@@ -13,6 +13,10 @@ export default {
     score: {
       type: Number,
       required: true
+    },
+    total: {
+      type: Number,
+      default: 10
     }
   },
   emits: ['restart']
