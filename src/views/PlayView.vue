@@ -1,105 +1,91 @@
 <template>
-  <div>
-    <div v-if="gameState === 'playing'">
-      <QuestionCard
-        :question="questions[currentIndex]"
-        @answer="handleAnswer"
-      />
-      <p>Question {{ currentIndex + 1 }} of {{ questions.length }}</p>
+  <div class="play-view">
+
+    <!-- Timer bar -->
+    <div class="timer-bar">
+      <div
+        class="timer-fill"
+        :style="{ width: timerPercent + '%' }"
+        :class="{ urgent: store.timeLeft <= 5 }"
+      ></div>
     </div>
-    <ScoreBoard
-      v-else
-      :score="score"
-      @restart="resetGame"
+
+    <!-- Progress indicator -->
+    <p class="progress">
+      Question {{ store.progress.current }} of {{ store.progress.total }}
+    </p>
+
+    <!-- Question -->
+    <QuestionCard
+      v-if="store.gameState === 'playing' && store.currentQuestion"
+      :question="store.currentQuestion"
+      :selectedAnswer="store.selectedAnswer"
+      @answer="store.submitAnswer"
     />
+
+    <!-- Score screen -->
+    <ScoreBoard
+      v-else-if="store.gameState === 'end'"
+      :score="store.score"
+      :total="store.questions.length"
+      @restart="handleRestart"
+    />
+
   </div>
 </template>
 
 <script>
+import { useGameStore } from '../stores/gameStore.js'
 import QuestionCard from '../components/QuestionCard.vue'
 import ScoreBoard from '../components/ScoreBoard.vue'
 
 export default {
   name: 'PlayView',
   components: { QuestionCard, ScoreBoard },
-  data() {
-    return {
-      currentIndex: 0,
-      score: 0,
-      gameState: 'playing',
-      questions: [
-        {
-            question: "How many planets are in our solar system?",
-            answers: ["7", "8", "9", "10"],
-            correct: 1
-        },
-        {
-            question: "What is the capital city of Australia?",
-            answers: ["Sydney", "Melbourne", "Brisbane", "Canberra"],
-            correct: 3
-        },
-        {
-            question: "Which element has the chemical symbol 'Au'?",
-            answers: ["Silver", "Aluminium", "Gold", "Copper"],
-            correct: 2
-        },
-        {
-            question: "How many sides does a hexagon have?",
-            answers: ["5", "7", "8", "6"],
-            correct: 3
-        },
-        {
-            question: "Who painted the Mona Lisa?",
-            answers: ["Michelangelo", "Leonardo da Vinci", "Raphael", "Caravaggio"],
-            correct: 1
-        },
-        {
-            question: "What is the longest river in the world?",
-            answers: ["Amazon", "Yangtze", "Mississippi", "Nile"],
-            correct: 3
-        },
-        {
-            question: "How many strings does a standard guitar have?",
-            answers: ["4", "5", "6", "7"],
-            correct: 2
-        },
-        {
-            question: "What sport is played at Wimbledon?",
-            answers: ["Cricket", "Tennis", "Badminton", "Squash"],
-            correct: 1
-        },
-        {
-            question: "Which country is home to the kangaroo?",
-            answers: ["New Zealand", "South Africa", "Brazil", "Australia"],
-            correct: 3
-        },
-        {
-            question: "How many hours are in a week?",
-            answers: ["148", "156", "168", "172"],
-            correct: 2
-        }
-        ]
+
+  setup() {
+    const store = useGameStore()
+    return { store }
+  },
+
+  computed: {
+    timerPercent() {
+      return (this.store.timeLeft / 15) * 100
     }
   },
-  mounted() {
-    this.startGame()
-  },
+
   methods: {
-    startGame() {
-      this.currentIndex = 0
-      this.score = 0
-      this.gameState = 'playing'
-    },
-    handleAnswer(isCorrect) {
-      if (isCorrect) this.score++
-      this.currentIndex++
-      if (this.currentIndex === this.questions.length) {
-        this.gameState = 'end'
-      }
-    },
-    resetGame() {
+    handleRestart() {
+      this.store.resetGame()
       this.$router.push({ name: 'home' })
     }
   }
 }
 </script>
+
+<style scoped>
+.timer-bar {
+  width: 100%;
+  height: 8px;
+  background: #333;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+
+.timer-fill {
+  height: 100%;
+  background: #4caf50;
+  transition: width 0.9s linear;
+}
+
+.timer-fill.urgent {
+  background: #e53935;
+}
+
+.progress {
+  text-align: center;
+  color: #aaa;
+  margin-bottom: 1rem;
+}
+</style>
