@@ -15,6 +15,10 @@
       Question {{ store.progress.current }} of {{ store.progress.total }}
     </p>
 
+    <p v-if="store.streak >= 3" class="streak">
+      🔥 {{ store.streak }} in a row!
+    </p>
+
     <!-- Question -->
     <QuestionCard
       v-if="store.gameState === 'playing' && store.currentQuestion"
@@ -87,5 +91,13 @@ export default {
   text-align: center;
   color: #aaa;
   margin-bottom: 1rem;
+}
+
+.streak {
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ff9800;
+  margin-bottom: 0.5rem;
 }
 </style>
