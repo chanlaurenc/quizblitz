@@ -9,3 +9,7 @@
 **/[Claude Sonnet 4.6]** Update my ScoreBoard.vue to accept a total prop and display "You scored X out of Y" instead of hardcoded 10.
 
 **/[Claude Sonnet 4.6]** Add a streak bonus to my Pinia game store. Track streak and bestStreak in state. In submitAnswer(), award a bonus point every 3 correct answers in a row and reset streak on a wrong answer. Also reset both in resetGame(). Display a 🔥 streak message in PlayView when streak is 3 or more.
+
+**/[Claude Sonnet 4.6]** How do I deploy my Vue 3 app to GitHub Pages? I don't have a deploy script set up yet.
+
+**/[Claude Sonnet 4.6]** My GitHub Pages deployment is showing a blank page at chanlaurenc.github.io/quizblitz/ — the nav renders but the home screen content is missing. How do I fix the routing for GitHub Pages?
