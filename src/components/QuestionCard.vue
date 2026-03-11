@@ -5,12 +5,9 @@
       <button
         v-for="(answer, index) in question.answers"
         :key="index"
-        :disabled="answered"
-        :class="{
-          correct: answered && index === question.correct,
-          wrong: answered && index === selectedIndex && index !== question.correct
-        }"
-        @click="handleAnswer(index)"
+        :class="buttonClass(index)"
+        :disabled="selectedAnswer !== null"
+        @click="selectAnswer(index)"
       >
         {{ answer }}
       </button>
@@ -25,26 +22,23 @@ export default {
     question: {
       type: Object,
       required: true
+    },
+    selectedAnswer: {
+      type: Number,
+      default: null
     }
   },
   emits: ['answer'],
-  data() {
-    return {
-      answered: false,
-      selectedIndex: null
-    }
-  },
   methods: {
-    handleAnswer(index) {
-      if (this.answered) return
-      this.answered = true
-      this.selectedIndex = index
-      const isCorrect = index === this.question.correct
-      setTimeout(() => {
-        this.$emit('answer', isCorrect)
-        this.answered = false
-        this.selectedIndex = null
-      }, 1000)
+    selectAnswer(index) {
+      if (this.selectedAnswer !== null) return
+      this.$emit('answer', index)
+    },
+    buttonClass(index) {
+      if (this.selectedAnswer === null) return ''
+      if (index === this.question.correct) return 'correct'
+      if (index === this.selectedAnswer) return 'wrong'
+      return ''
     }
   }
 }
@@ -99,5 +93,10 @@ button.wrong {
   background: #fde8e8;
   border-color: #f5a0a0;
   color: #c0392b;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.8;
 }
 </style>
