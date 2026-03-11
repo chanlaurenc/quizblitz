@@ -7,3 +7,5 @@
 **/[Claude Sonnet 4.6]** Update my HomeView.vue to call store.startGame() before navigating to /play. My HomeView uses a StartScreen component with @start="goToGame" instead of a direct button.
 
 **/[Claude Sonnet 4.6]** Update my ScoreBoard.vue to accept a total prop and display "You scored X out of Y" instead of hardcoded 10.
+
+**/[Claude Sonnet 4.6]** Add a streak bonus to my Pinia game store. Track streak and bestStreak in state. In submitAnswer(), award a bonus point every 3 correct answers in a row and reset streak on a wrong answer. Also reset both in resetGame(). Display a 🔥 streak message in PlayView when streak is 3 or more.
