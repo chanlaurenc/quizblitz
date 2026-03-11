@@ -1,0 +1,11 @@
+**/[Claude Sonnet 4.6]** Write a Vue 3 single-file component called StartScreen. It should display a heading that says 'QuizBlitz', a short tagline, and a button labelled 'Play'. When the button is clicked, it emits an event called 'start'. Use the Options API (not Composition API). No props needed.
+    
+**/[Claude Sonnet 4.6]** Write a Vue 3 single-file component called ScoreBoard. It receives a prop called score (Number). It displays a heading 'Game Over', the player's score out of 10, and a 'Play Again' button. When Play Again is clicked, it emits 'restart'. Use the Options API.
+
+**/[Claude Sonnet 4.6]** I'm building a Vue 3 quiz game using Vite and the Options API. Write a single-file component called QuestionCard. It receives one prop called `question` shaped like `{ question: String, answers: Array, correct: Number }`. The template should display the question text and render four answer buttons using v-for. When a button is clicked: disable all buttons immediately, apply a green CSS class to the correct answer button and a red class to the clicked button if it was wrong, wait 1 second using setTimeout, then emit an event called 'answer' with the value true if the answer was correct or false if it was wrong. Reset the highlight state after emitting. Do not use TypeScript.
+
+**/[Claude Sonnet 4.6]**Where is the true/false logged? How do I know the output is working correctly?
+
+**/[Claude Sonnet 4.6]** Write the complete App.vue for a Vue 3 quiz game using the Options API. It should import and use three components: StartScreen, QuestionCard, and ScoreBoard. The data() should include a questions array with 10 questions, currentIndex, score, and gameState (starting as 'start'). It needs three methods: startGame() which sets gameState to 'playing' and resets currentIndex and score to 0, handleAnswer(isCorrect) which increments score if correct then increments currentIndex and sets gameState to 'end' if all questions are answered, and resetGame() which sets gameState back to 'start'. The template should show StartScreen when gameState is 'start', QuestionCard when 'playing', and ScoreBoard when 'end'.
+
+**/[Claude Sonnet 4.6]** Add a question counter below the QuestionCard that shows "Question 3 of 10". This should be a computed property or a simple expression in the template.
