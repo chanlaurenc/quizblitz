@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia'
-import { questions as questionBank } from '../data/questions.js'
 
 export const useGameStore = defineStore('game', {
 
@@ -12,7 +11,9 @@ export const useGameStore = defineStore('game', {
     timeLeft: 15,
     _timerInterval: null,   // internal — managed by the store only
     streak: 0,
-    bestStreak: 0
+    bestStreak: 0,
+    playerName: '',
+    scoreSubmitted: false
   }),
 
   getters: {
@@ -52,13 +53,15 @@ export const useGameStore = defineStore('game', {
             this.nextQuestion()   // time's up — skip to next, no points
         }
     },
-    startGame() {
-        this.questions = [...questionBank]   // fresh copy each game
+    async startGame() {
+        const response = await fetch('http://localhost:3000/api/questions/random')
+        const questions = await response.json()
+        this.questions = questions
         this.currentIndex = 0
         this.score = 0
-        this.gameState = 'playing'
         this.selectedAnswer = null
         this.timeLeft = 15
+        this.gameState = 'playing'
         this._startTimer()
     },
     submitAnswer(answerIndex) {
@@ -99,6 +102,23 @@ export const useGameStore = defineStore('game', {
         this.timeLeft = 15
         this.streak = 0
         this.bestStreak = 0
+        this.playerName = ''
+        this.scoreSubmitted = false
+    },
+    async submitScore() {
+        if (!this.playerName.trim()) return
+        const response = await fetch('http://localhost:3000/api/scores', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+            playerName: this.playerName,
+            score: this.score,
+            totalQuestions: this.questions.length
+            })
+        })
+        if (response.ok) {
+            this.scoreSubmitted = true
+        }
     }
   }
 

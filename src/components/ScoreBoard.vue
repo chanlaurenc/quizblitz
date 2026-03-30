@@ -29,8 +29,9 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 80vh;
+  min-height: auto;  /* ← was 80vh */
   gap: 1rem;
+  padding: 2rem 0;
 }
 
 h1 {
