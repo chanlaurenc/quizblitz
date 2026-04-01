@@ -34,15 +34,21 @@
         :total="store.questions.length"
         @restart="handleRestart"
       />
-      <div v-if="!store.scoreSubmitted" class="submit-score">
-        <input
-          v-model="store.playerName"
-          placeholder="Enter your name"
-          class="name-input"
-        />
-        <button @click="store.submitScore()" class="submit-btn">Submit Score</button>
+
+      <div v-if="store.token" class="submit-score">
+        <p class="playing-as">Playing as {{ store.userEmail }}</p>
+        <button v-if="!store.scoreSubmitted" @click="store.submitScore()" class="submit-btn">
+          Submit Score
+        </button>
+        <p v-else class="submitted">Score submitted! ✓</p>
       </div>
-      <p v-else class="submitted">Score submitted! ✓</p>
+
+      <div v-else class="submit-score">
+        <p class="login-prompt">
+          <RouterLink to="/login" class="auth-link">Log in</RouterLink>
+          to save your score to the leaderboard.
+        </p>
+      </div>
     </div>
 
   </div>
@@ -131,10 +137,6 @@ export default {
   width: 220px;
 }
 
-.name-input::placeholder {
-  color: #b0a8c8;
-}
-
 .submit-btn {
   padding: 0.65rem 2rem;
   background: #c9b8e8;
@@ -156,5 +158,28 @@ export default {
   color: #7c6fa0;
   font-weight: 600;
   margin-top: 1rem;
+}
+
+.playing-as {
+  text-align: center;
+  color: #b0a8c8;
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}
+
+.login-prompt {
+  text-align: center;
+  color: #b0a8c8;
+  font-size: 0.95rem;
+}
+
+.auth-link {
+  color: #c9b8e8;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.auth-link:hover {
+  color: #7c6fa0;
 }
 </style>

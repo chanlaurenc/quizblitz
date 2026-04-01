@@ -3,14 +3,29 @@
     <nav>
       <RouterLink to="/">Home</RouterLink>
       <RouterLink to="/leaderboard">Leaderboard</RouterLink>
+      <div class="nav-auth">
+        <template v-if="store.token">
+          <span class="nav-email">{{ store.userEmail }}</span>
+          <button @click="store.logout()" class="nav-logout">Log out</button>
+        </template>
+        <template v-else>
+          <RouterLink to="/login">Log in</RouterLink>
+          <RouterLink to="/register">Register</RouterLink>
+        </template>
+      </div>
     </nav>
     <RouterView />
   </div>
 </template>
 
 <script>
+import { useGameStore } from './stores/gameStore.js'
+
 export default {
-  name: 'App'
+  name: 'App',
+  setup() {
+    return { store: useGameStore() }
+  }
 }
 </script>
 
@@ -36,6 +51,7 @@ body {
 
 nav {
   display: flex;
+  align-items: center;
   gap: 1rem;
   padding: 1.25rem 2rem;
   background: #fff;
@@ -52,5 +68,31 @@ nav a {
 nav a.router-link-active {
   color: #7c6fa0;
   font-weight: 600;
+}
+
+.nav-auth {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-email {
+  font-size: 0.85rem;
+  color: #b0a8c8;
+}
+
+.nav-logout {
+  background: none;
+  border: none;
+  color: #9b8eb8;
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit;
+}
+
+.nav-logout:hover {
+  color: #7c6fa0;
 }
 </style>
