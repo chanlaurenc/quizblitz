@@ -56,7 +56,7 @@ userEmail: localStorage.getItem('quizblitz_email') || null
         }
     },
     async startGame() {
-        const response = await fetch('http://localhost:3000/api/questions/random')
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/questions/random`)
         const questions = await response.json()
         this.questions = questions
         this.currentIndex = 0
@@ -108,7 +108,7 @@ userEmail: localStorage.getItem('quizblitz_email') || null
         this.scoreSubmitted = false
     },
     async submitScore() {
-        const response = await fetch('http://localhost:3000/api/scores', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/scores`, {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
@@ -124,7 +124,7 @@ userEmail: localStorage.getItem('quizblitz_email') || null
         }
     },
     async register(email, password) {
-        const response = await fetch('http://localhost:3000/api/auth/register', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/register`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password })
@@ -135,7 +135,7 @@ userEmail: localStorage.getItem('quizblitz_email') || null
     },
 
     async login(email, password) {
-        const response = await fetch('http://localhost:3000/api/auth/login', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password })
